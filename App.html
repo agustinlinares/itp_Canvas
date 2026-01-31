@@ -1,0 +1,576 @@
+<!doctype html>
+<html lang="es">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Documento del Proyecto — Idea y Canvas</title>
+  <style>
+    :root{
+      --bg: #f7f7f8;
+      --paper: #ffffff;
+      --ink: #111827;
+      --muted: #4b5563;
+      --line: #d1d5db;
+      --soft: #e5e7eb;
+      --link: #1f2937;
+      --shadow: 0 1px 10px rgba(0,0,0,0.06);
+    }
+
+    *{ box-sizing: border-box; }
+    html, body{ height: 100%; }
+    body{
+      margin: 0;
+      background: var(--bg);
+      color: var(--ink);
+      font-family: ui-serif, Georgia, "Times New Roman", Times, serif;
+      line-height: 1.55;
+    }
+
+    .page{ min-height: 100vh; }
+
+    .header{
+      background: #fff;
+      border-bottom: 1px solid var(--soft);
+    }
+    .header__inner{
+      max-width: 980px;
+      margin: 0 auto;
+      padding: 16px 16px 12px;
+    }
+    .header__left{
+      display: flex;
+      align-items: baseline;
+      justify-content: space-between;
+      gap: 12px;
+      flex-wrap: wrap;
+    }
+    .header__title{
+      font-weight: 700;
+      letter-spacing: 0.2px;
+    }
+    .header__subtitle{
+      color: var(--muted);
+      font-size: 0.92rem;
+    }
+
+    .nav{
+      display: flex;
+      gap: 12px;
+      flex-wrap: wrap;
+      margin-top: 10px;
+    }
+    .nav__link{
+      color: var(--link);
+      text-decoration: none;
+      padding: 6px 8px;
+      border-radius: 6px;
+      border: 1px solid transparent;
+      font-size: 0.95rem;
+    }
+    .nav__link:hover{
+      border-color: var(--soft);
+      background: #fafafa;
+    }
+    .nav__link--active{
+      border-color: var(--line);
+      background: #f9fafb;
+    }
+
+    .container{
+      max-width: 980px;
+      margin: 0 auto;
+      padding: 18px 16px 30px;
+    }
+    .content{
+      background: var(--paper);
+      border: 1px solid var(--soft);
+      box-shadow: var(--shadow);
+      border-radius: 10px;
+      padding: 22px 22px;
+    }
+
+    /* Cover */
+    .cover{ padding: 8px 0 6px; }
+    .cover__meta{
+      border: 1px solid var(--soft);
+      border-radius: 10px;
+      padding: 12px 12px;
+      background: #fafafa;
+      margin-bottom: 16px;
+    }
+    .cover__line{ font-size: 0.95rem; color: var(--muted); }
+    .cover__title{
+      margin: 10px 0 8px;
+      font-size: 2.0rem;
+      font-weight: 700;
+    }
+    .cover__abstract{ margin: 0; color: var(--ink); }
+    .label{ font-weight: 700; }
+    .cover__links{
+      display: flex;
+      gap: 10px;
+      margin-top: 14px;
+      flex-wrap: wrap;
+    }
+
+    .rule{ border-top: 1px solid var(--soft); margin: 14px 0; }
+
+    /* Document header */
+    .docHeader{
+      padding-bottom: 10px;
+      margin-bottom: 16px;
+      border-bottom: 1px solid var(--soft);
+    }
+    .docHeader__kicker{
+      font-size: 0.85rem;
+      color: var(--muted);
+      text-transform: uppercase;
+      letter-spacing: 0.08em;
+    }
+    .docHeader__title{
+      margin: 6px 0 8px;
+      font-size: 1.8rem;
+    }
+    .docHeader__desc{
+      margin: 0;
+      color: var(--muted);
+    }
+
+    /* Sections */
+    .section{ padding: 10px 0; }
+    .section__title{
+      font-size: 1.2rem;
+      margin: 0 0 8px;
+    }
+    .section__number{ font-weight: 700; }
+
+    /* Lists */
+    .list{ margin: 0; padding-left: 18px; }
+    .list--spaced li{ margin-bottom: 6px; }
+    .list--compact li{ margin-bottom: 4px; }
+
+    /* Table */
+    .tableWrap{
+      width: 100%;
+      overflow-x: auto;
+      border: 1px solid var(--soft);
+      border-radius: 10px;
+    }
+    table{
+      width: 100%;
+      border-collapse: collapse;
+      min-width: 640px;
+      background: #fff;
+    }
+    th, td{
+      padding: 10px 10px;
+      border-bottom: 1px solid var(--soft);
+      vertical-align: top;
+    }
+    th{
+      text-align: left;
+      background: #fafafa;
+      font-weight: 700;
+    }
+    .tdStrong{ font-weight: 700; }
+
+    /* Canvas grid */
+    .canvas{
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 10px;
+      margin-top: 8px;
+    }
+    .canvas__block{
+      border: 1px solid var(--soft);
+      border-radius: 10px;
+      padding: 10px 10px;
+      background: #fff;
+      min-height: 140px;
+    }
+    .canvas__title{
+      font-weight: 700;
+      margin-bottom: 6px;
+    }
+
+    /* Note */
+    .note{
+      margin-top: 14px;
+      border: 1px solid var(--soft);
+      border-left: 4px solid var(--line);
+      border-radius: 10px;
+      background: #fafafa;
+      padding: 10px 12px;
+    }
+    .note__title{ font-weight: 700; margin-bottom: 4px; }
+    .note__text{ margin: 0; color: var(--muted); }
+
+    /* Buttons */
+    .btn{
+      display: inline-block;
+      text-decoration: none;
+      color: var(--ink);
+      border: 1px solid var(--line);
+      background: #fff;
+      padding: 8px 10px;
+      border-radius: 8px;
+      font-size: 0.95rem;
+    }
+    .btn:hover{ background: #fafafa; }
+    .btn--secondary{ background: #f9fafb; }
+
+    /* Footer */
+    .footer{ margin-top: 14px; }
+    .footer__rule{ border-top: 1px solid var(--soft); margin: 10px 0 10px; }
+    .footer__text{ color: var(--muted); font-size: 0.9rem; }
+
+    /* Responsive */
+    @media (max-width: 900px){
+      .canvas{ grid-template-columns: 1fr; }
+      .content{ padding: 18px 16px; }
+      table{ min-width: 520px; }
+    }
+  </style>
+</head>
+
+<body>
+  <div class="page">
+    <header class="header">
+      <div class="header__inner">
+        <div class="header__left">
+          <div class="header__title">The Power Education</div>
+          <div class="header__subtitle">Idea de negocio y Modelo Canvas</div>
+        </div>
+
+        <nav class="nav" aria-label="Navegación principal">
+          <a class="nav__link" href="#/">Portada</a>
+          <a class="nav__link" href="#/idea">Idea de negocio</a>
+          <a class="nav__link" href="#/canvas">Modelo Canvas</a>
+        </nav>
+      </div>
+    </header>
+
+    <div class="container">
+      <main class="content" id="app"></main>
+
+      <footer class="footer">
+        <div class="footer__rule"></div>
+        <div class="footer__text">Elaborado para entrega académica · Estructura formal y ampliable</div>
+      </footer>
+    </div>
+  </div>
+
+  <script>
+    // ===== Datos (edítalos a tu gusto) =====
+    const IDEA = {
+      titulo: "Plataforma de acompañamiento laboral",
+      resumen:
+        "Plataforma web orientada a centralizar información laboral, traducir el lenguaje administrativo a lenguaje comprensible y acompañar la toma de decisiones laborales con apoyo guiado.",
+      problema: [
+        "Desorientación ante trámites y normativa laboral.",
+        "Bajo conocimiento de derechos laborales y prestaciones.",
+        "Dificultad para decidir entre opciones laborales de corto y largo plazo.",
+        "Acceso disperso a información de empleo, formación y ayudas."
+      ],
+      objetivos: [
+        "Mejorar la autonomía de las personas ante decisiones laborales.",
+        "Reducir errores por desconocimiento de derechos, contratos y trámites.",
+        "Facilitar itinerarios de empleo/formación con pasos concretos."
+      ],
+      solucion: [
+        "Centralización de recursos y enlaces oficiales.",
+        "Traducción de lenguaje administrativo a explicaciones claras.",
+        "Acompañamiento guiado (paso a paso) para situaciones frecuentes.",
+        "Simulación básica de escenarios y consecuencias para apoyar decisiones."
+      ],
+      mvp: [
+        { titulo: "Diagnóstico de situación", desc: "Cuestionario breve y salida orientativa con próximos pasos." },
+        { titulo: "Hoja de ruta inmediata", desc: "Tres acciones recomendadas con enlaces oficiales y requisitos." },
+        { titulo: "Empleo (mínimo)", desc: "Búsqueda básica y filtros simples (ubicación, jornada, sector)." },
+        { titulo: "Formación (curada)", desc: "Listado reducido de opciones relevantes y su salida laboral." },
+        { titulo: "Asistencia explicativa", desc: "Chat informativo para dudas comunes (con avisos y límites)." },
+        { titulo: "Simulador", desc: "Casos tipo (aceptar oferta, despido, cambio de jornada) y orientación." }
+      ],
+      modeloNegocio: [
+        "Plan gratuito: guías y recursos básicos.",
+        "Plan freemium/suscripción: simulación avanzada, alertas, personalización.",
+        "Acuerdos institucionales: licencias/pilotos con entidades públicas o del tercer sector."
+      ],
+      publicoObjetivo: [
+        "Personas desempleadas.",
+        "Trabajadores en precariedad.",
+        "Jóvenes sin orientación laboral.",
+        "Mayores de 45 en reconversión.",
+        "Colectivos vulnerables con baja alfabetización administrativa."
+      ]
+    };
+
+    const CANVAS = {
+      aliadosClave: [
+        "Administraciones públicas y servicios de empleo",
+        "ONG y entidades de inclusión",
+        "Centros de formación",
+        "Asesorías laborales colaboradoras",
+        "Universidades y centros de investigación social"
+      ],
+      actividadesClave: [
+        "Curación/actualización de información laboral",
+        "Diseño de itinerarios y guías paso a paso",
+        "Traducción de lenguaje administrativo",
+        "Desarrollo de IA explicativa y simuladores",
+        "Evaluación de impacto y mejora continua"
+      ],
+      propuestaValor: [
+        "Información clara y accesible en un único lugar",
+        "Acompañamiento guiado para decisiones laborales",
+        "Reducción de errores por desconocimiento de derechos",
+        "Enfoque social y centrado en autonomía"
+      ],
+      relacionClientes: [
+        "Autogestión guiada (wizard)",
+        "Asistencia conversacional con lenguaje comprensible",
+        "Recomendaciones personalizadas",
+        "Alertas y seguimiento de objetivos"
+      ],
+      segmentosClientes: [
+        "B2C: desempleados, precariedad, jóvenes, +45",
+        "B2G/B2B: ayuntamientos, CCAA, ONG, fundaciones, sindicatos"
+      ],
+      recursosClave: [
+        "Plataforma web",
+        "Base de conocimiento y fuentes oficiales",
+        "Módulo de IA explicativa",
+        "Equipo/colaboradores con experiencia laboral y social",
+        "Diseño UX accesible"
+      ],
+      canales: [
+        "Web (MVP) / App (futuro)",
+        "SEO y contenidos educativos",
+        "Redes sociales (divulgación)",
+        "Derivación desde ONG/servicios sociales",
+        "Convenios institucionales"
+      ],
+      estructuraCostes: [
+        "Desarrollo y mantenimiento",
+        "Infraestructura e IA",
+        "Actualización normativa",
+        "Legal y protección de datos",
+        "Comunicación y captación",
+        "Medición de impacto"
+      ],
+      fuentesIngresos: [
+        "Freemium/suscripción",
+        "Licencias/acuerdos institucionales",
+        "Pilotos subvencionados y programas de impacto social"
+      ]
+    };
+
+    // ===== Helpers =====
+    const el = (html) => {
+      const t = document.createElement("template");
+      t.innerHTML = html.trim();
+      return t.content.firstChild;
+    };
+
+    const renderSection = (num, title, innerHtml) => `
+      <section class="section">
+        <h2 class="section__title"><span class="section__number">${num}.</span> ${title}</h2>
+        ${innerHtml}
+      </section>
+    `;
+
+    function setActiveNav(route) {
+      const links = document.querySelectorAll(".nav__link");
+      links.forEach(a => {
+        const href = a.getAttribute("href") || "";
+        const isActive =
+          (route === "/" && href === "#/") ||
+          (route === "/idea" && href === "#/idea") ||
+          (route === "/canvas" && href === "#/canvas");
+        a.classList.toggle("nav__link--active", isActive);
+      });
+    }
+
+    // ===== Vistas =====
+    function viewCover() {
+      return `
+        <div class="cover">
+          <div class="cover__meta">
+            <div class="cover__line">TRABAJO / PROYECTO</div>
+            <div class="cover__line">Asignatura: Itinerario personal para la empleabilidad II</div>
+            <div class="cover__line">Autor/a: Agustín Linares Carrera</div>
+            <div class="cover__line">Fecha: 31 / 01 / 2026</div>
+          </div>
+
+          <h1 class="cover__title">${IDEA.titulo}</h1>
+          <p class="cover__abstract"><span class="label">Resumen:</span> ${IDEA.resumen}</p>
+
+          <div class="cover__links">
+            <a class="btn" href="#/idea">Ir a Idea de negocio</a>
+            <a class="btn btn--secondary" href="#/canvas">Ir a Modelo Canvas</a>
+          </div>
+        </div>
+
+        <div class="rule"></div>
+
+        ${renderSection("0", "Estructura del documento", `
+          <ol class="list list--spaced">
+            <li>Idea de negocio: problema, objetivos, solución, MVP, modelo de negocio y público objetivo.</li>
+            <li>Modelo Canvas: 9 bloques para descripción estratégica del proyecto.</li>
+          </ol>
+        `)}
+      `;
+    }
+
+    function viewIdea() {
+      const mvpRows = IDEA.mvp.map(m => `
+        <tr>
+          <td class="tdStrong">${m.titulo}</td>
+          <td>${m.desc}</td>
+        </tr>
+      `).join("");
+
+      return `
+        <div class="docHeader">
+          <div class="docHeader__kicker">Sección 1</div>
+          <h1 class="docHeader__title">Idea de negocio</h1>
+          <p class="docHeader__desc">${IDEA.resumen}</p>
+        </div>
+
+        ${renderSection("1.1", "Problema", `
+          <ul class="list">
+            ${IDEA.problema.map(x => `<li>${x}</li>`).join("")}
+          </ul>
+        `)}
+
+        ${renderSection("1.2", "Objetivos", `
+          <ul class="list">
+            ${IDEA.objetivos.map(x => `<li>${x}</li>`).join("")}
+          </ul>
+        `)}
+
+        ${renderSection("1.3", "Propuesta de solución", `
+          <ul class="list">
+            ${IDEA.solucion.map(x => `<li>${x}</li>`).join("")}
+          </ul>
+        `)}
+
+        ${renderSection("1.4", "Producto mínimo viable (MVP)", `
+          <div class="tableWrap">
+            <table role="table" aria-label="Tabla MVP">
+              <thead>
+                <tr>
+                  <th>Componente</th>
+                  <th>Descripción</th>
+                </tr>
+              </thead>
+              <tbody>
+                ${mvpRows}
+              </tbody>
+            </table>
+          </div>
+        `)}
+
+        ${renderSection("1.5", "Modelo de negocio", `
+          <ul class="list">
+            ${IDEA.modeloNegocio.map(x => `<li>${x}</li>`).join("")}
+          </ul>
+        `)}
+
+        ${renderSection("1.6", "Público objetivo", `
+          <ul class="list">
+            ${IDEA.publicoObjetivo.map(x => `<li>${x}</li>`).join("")}
+          </ul>
+        `)}
+      `;
+    }
+
+    function canvasBlock(title, items) {
+      return `
+        <div class="canvas__block">
+          <div class="canvas__title">${title}</div>
+          <ul class="list list--compact">
+            ${items.map(x => `<li>${x}</li>`).join("")}
+          </ul>
+        </div>
+      `;
+    }
+
+    function viewCanvas() {
+      return `
+        <div class="docHeader">
+          <div class="docHeader__kicker">Sección 2</div>
+          <h1 class="docHeader__title">Modelo Canvas</h1>
+          <p class="docHeader__desc">
+            Estructura en 9 bloques para describir la lógica de creación, entrega y captura de valor del proyecto.
+          </p>
+        </div>
+
+        ${renderSection("2.1", "Bloques del Canvas", `
+          <div class="canvas">
+            ${canvasBlock("Aliados clave", CANVAS.aliadosClave)}
+            ${canvasBlock("Actividades clave", CANVAS.actividadesClave)}
+            ${canvasBlock("Propuesta de valor", CANVAS.propuestaValor)}
+            ${canvasBlock("Relación con clientes", CANVAS.relacionClientes)}
+            ${canvasBlock("Segmentos de clientes", CANVAS.segmentosClientes)}
+            ${canvasBlock("Recursos clave", CANVAS.recursosClave)}
+            ${canvasBlock("Canales", CANVAS.canales)}
+            ${canvasBlock("Estructura de costes", CANVAS.estructuraCostes)}
+            ${canvasBlock("Fuentes de ingresos", CANVAS.fuentesIngresos)}
+          </div>
+
+          <div class="note">
+            <div class="note__title">Nota metodológica</div>
+            <p class="note__text">
+              Este Canvas es una versión inicial. Debe iterarse con evidencia (entrevistas, validación de hipótesis,
+              métricas del MVP) y actualizarse conforme se obtengan aprendizajes del usuario.
+            </p>
+          </div>
+        `)}
+      `;
+    }
+
+    function viewNotFound() {
+      return `
+        <div class="docHeader">
+          <div class="docHeader__kicker">Error</div>
+          <h1 class="docHeader__title">404</h1>
+          <p class="docHeader__desc">La página solicitada no existe.</p>
+          <a class="btn" href="#/">Volver a la portada</a>
+        </div>
+      `;
+    }
+
+    // ===== Router (hash) =====
+    function getRoute() {
+      const h = (location.hash || "#/").replace("#", "");
+      // normaliza
+      if (h === "") return "/";
+      if (!h.startsWith("/")) return "/" + h;
+      return h;
+    }
+
+    function render() {
+      const route = getRoute();
+      setActiveNav(route);
+
+      const app = document.getElementById("app");
+      let html = "";
+
+      if (route === "/") html = viewCover();
+      else if (route === "/idea") html = viewIdea();
+      else if (route === "/canvas") html = viewCanvas();
+      else html = viewNotFound();
+
+      app.innerHTML = html;
+      window.scrollTo({ top: 0, behavior: "instant" });
+    }
+
+    window.addEventListener("hashchange", render);
+    window.addEventListener("DOMContentLoaded", () => {
+      if (!location.hash) location.hash = "#/";
+      render();
+    });
+  </script>
+</body>
+</html>
